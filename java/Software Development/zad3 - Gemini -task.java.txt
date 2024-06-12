@@ -1,0 +1,17 @@
+public class MainApp extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        TaskController controller = new TaskController();
+
+        // Utworzenie sceny i dodanie tabeli zadań
+        Scene scene = new Scene(controller.getTaskTable(), 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Zarządzanie zadaniami");
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}

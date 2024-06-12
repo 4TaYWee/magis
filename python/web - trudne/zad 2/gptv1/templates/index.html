@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>System Komentarzy</title>
+</head>
+<body>
+    <h1>System Komentarzy</h1>
+    <form action="/" method="post">
+        <label for="name">Imię:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="comment">Komentarz:</label><br>
+        <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br>
+        <button type="submit">Dodaj komentarz</button>
+    </form>
+    <h2>Komentarze:</h2>
+    <ul>
+        {% for comment in comments %}
+            <li><strong>{{ comment[1] }}:</strong> {{ comment[2] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

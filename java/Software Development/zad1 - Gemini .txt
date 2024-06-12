@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class WordFrequency {
+
+  public static void main(String[] args) throws IOException {
+    // Replace "path/to/your/file.txt" with the actual path to your file
+    String filePath = "path/to/your/file.txt";
+    Map<String, Integer> wordCounts = countWords(filePath);
+
+    System.out.println("Word frequencies:");
+    for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
+      System.out.println(entry.getKey() + ": " + entry.getValue());
+    }
+  }
+
+  public static Map<String, Integer> countWords(String filePath) throws IOException {
+    HashMap<String, Integer> wordCounts = new HashMap<>();
+    BufferedReader reader = null;
+
+    try {
+      reader = new BufferedReader(new FileReader(filePath));
+      String line;
+
+      while ((line = reader.readLine()) != null) {
+        // Process the line to split into words and lowercase them
+        String[] words = line.toLowerCase().split("\\W+"); // Split by non-word characters
+
+        for (String word : words) {
+          if (word.isEmpty()) {
+            continue;
+          }
+          int count = wordCounts.getOrDefault(word, 0);
+          wordCounts.put(word, count + 1);
+        }
+      }
+    } finally {
+      if (reader != null) {
+        reader.close();
+      }
+    }
+
+    return wordCounts;
+  }
+}

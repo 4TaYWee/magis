@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Przelicznik Walut</string>
+    <string name="kwota">Kwota</string>
+    <string-array name="waluty">
+        <item>PLN</item>
+        <item>EUR</item>
+        </string-array>
+</resources>

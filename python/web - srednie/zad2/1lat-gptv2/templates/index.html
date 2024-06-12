@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <script>
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var message = document.getElementById('message').value;
+            var error = "";
+
+            if (name == "") {
+                error += "Name is required.\n";
+            }
+
+            if (email == "") {
+                error += "Email is required.\n";
+            } else {
+                var emailRegex = /^\S+@\S+\.\S+$/;
+                if (!emailRegex.test(email)) {
+                    error += "Invalid email address.\n";
+                }
+            }
+
+            if (message == "") {
+                error += "Message is required.\n";
+            }
+
+            if (error !== "") {
+                alert(error);
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>{{ headline }}</h1>
+    <p>{{ paragraph }}</p>
+    <img src="{{ image_url }}" alt="Image">
+
+    <!-- Contact Form -->
+    <h2>Contact Form</h2>
+    <form action="/submit_contact_form" method="post" onsubmit="return validateForm()">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+
+        <label for="message">Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

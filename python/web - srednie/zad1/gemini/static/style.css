@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  color: #333;
+  font-size: 2em;
+}
+
+p {
+  line-height: 1.5;
+}
+
+img {
+  width: 200px;
+  height: auto;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+label {
+  font-weight: bold;
+}
+
+.error {  /* Add a class for error messages (optional) */
+  color: red;
+}

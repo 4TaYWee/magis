@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/editTextAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kwota"/>
+
+    <Spinner
+        android:id="@+id/spinnerFromCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/currencies"/>
+
+    <Spinner
+        android:id="@+id/spinnerToCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/currencies"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Przelicz"
+        android:onClick="convertCurrency"/>
+
+    <EditText
+        android:id="@+id/editTextResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Wynik"
+        android:enabled="false"/>
+
+</LinearLayout>

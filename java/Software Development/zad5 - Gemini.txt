@@ -1,0 +1,44 @@
+private void generateChart() {
+    String chartType = getSelectedChartType(); // Replace with your selection logic (e.g., dropdown menu, radio buttons)
+
+    List<Integer> selectedColumns = getSelectedColumns();
+    if (selectedColumns.isEmpty()) {
+        System.err.println("Wybierz kolumny do wizualizacji.");
+        return;
+    }
+
+    boolean allNumeric = true;
+    // ... (similar data type validation as in calculateStats)
+
+    if (!allNumeric) {
+        System.err.println("Wybrane kolumny zawierają nie-liczbowych wartości.");
+        return;
+    }
+
+    List<XYSeries<String, Double>> chartData = new ArrayList<>();
+    for (int col : selectedColumns) {
+        XYSeries<String, Double> series = new XYSeries<>();
+        series.setName("Kolumna " + (col + 1));
+        for (int row = 0; row < dataTable.getItems().size(); row++) {
+            List<String> dataRow = dataTable.getItems().get(row);
+            series.getData().add(new XYChart.Data<>(dataRow.get(0), Double.parseDouble(dataRow.get(col))));
+        }
+        chartData.add(series);
+    }
+
+    Chart chartInstance; // Declare a generic Chart object
+
+    if (chartType.equals("LineChart")) {
+        chartInstance = new LineChart<>();  // Create a LineChart instance
+    } else if (chartType.equals("BarChart")) {
+        chartInstance = new BarChart<>();  // Create a BarChart instance
+    } else if (chartType.equals("ScatterPlot")) {
+        chartInstance = new ScatterChart<>(); // Create a ScatterChart instance
+    } else {
+        System.err.println("Nieobsługiwany typ wykresu: " + chartType);
+        return;
+    }
+
+    ((XYChart) chartInstance).getData().addAll(chartData); // Cast and add data for LineChart, BarChart, ScatterChart
+    chart.setNode(chartInstance); // Update chart pane with the generated chart
+}

@@ -1,0 +1,107 @@
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+
+import com.google.gson.Gson; // Dodaj bibliotekę Gson
+
+public class PogodaApp {
+
+    private static final String API_URL = "https://openweathermap.org/api"; // Wpisz tutaj swój klucz API OpenWeatherMap
+    private static final String MIASTO = "Wrocław"; // Wpisz nazwę miasta
+
+    public static void main(String[] args) throws IOException {
+        // Pobierz dane JSON z API
+        String json = pobierzDaneJSON(API_URL + "?q=" + MIASTO + "&appid=" + API_URL);
+
+        // Parsuj dane JSON do obiektu Pogoda
+        Pogoda pogoda = new Gson().fromJson(json, Pogoda.class);
+
+        // Wyświetl bieżące warunki pogodowe
+        wyswietlWarunkiBiezace(pogoda);
+
+        // Wyświetl prognozę na kolejne dni
+        wyswietlPrognoze(pogoda);
+
+        // Wyświetl ostrzeżenia pogodowe (jeśli są dostępne)
+        wyswietlOstrzezenia(pogoda);
+    }
+
+    private static String pobierzDaneJSON(String url) throws IOException {
+        // Pobierz dane JSON z podanego adresu URL
+        return new URL(url).openStream().readAllBytes().toString("UTF-8");
+    }
+
+    private static void wyswietlWarunkiBiezace(Pogoda pogoda) {
+        // Wyświetl temperaturę, wilgotność, ciśnienie, wiatr itp.
+        System.out.println("**Warunki bieżące:**");
+        System.out.println("Temperatura: " + pogoda.getWarunkiBiezace().getTemperatura() + "°C");
+        System.out.println("Wilgotność: " + pogoda.getWarunkiBiezace().getWilgotnosc() + "%");
+        System.out.println("Ciśnienie: " + pogoda.getWarunkiBiezace().getCisnienie() + " hPa");
+        System.out.println("Wiatr: " + pogoda.getWarunkiBiezace().getWiatr() + " km/h");
+    }
+
+    private static void wyswietlPrognoze(Pogoda pogoda) {
+        // Wyświetl prognozę na kolejne dni (np. 3 dni)
+        System.out.println("\n**Prognoza na kolejne dni:**");
+        for (PrognozaDnia dzien : pogoda.getPrognozy()) {
+            System.out.println("\nData: " + dzien.getData());
+            System.out.println("Temperatura: " + dzien.getTemperatura().getMaksymalna() + "°C/" + dzien.getTemperatura().getMinimalna() + "°C");
+            System.out.println("Opis: " + dzien.getOpisPogody());
+        }
+    }
+
+    private static void wyswietlOstrzezenia(Pogoda pogoda) {
+        // Wyświetl ostrzeżenia pogodowe (jeśli są dostępne)
+        if (pogoda.getOstrzezenia() != null && !pogoda.getOstrzezenia().isEmpty()) {
+            System.out.println("\n**Ostrzeżenia:**");
+            for (Ostrzezenie ostrzezenie : pogoda.getOstrzezenia()) {
+                System.out.println(ostrzezenie.getTyp() + ": " + ostrzezenie.getOpis());
+            }
+        }
+    }
+}
+
+// Klasa reprezentująca dane pogodowe z API
+class Pogoda {
+    private WarunkiBiezace warunkiBiezace;
+    private List<PrognozaDnia> prognozy;
+    private List<Ostrzezenie> ostrzezenia;
+
+    // Gettery i settery...
+}
+
+// Klasa reprezentująca bieżące warunki pogodowe (ciąg dalszy)
+class WarunkiBiezace {
+    private double temperatura;
+    private int wilgotnosc;
+    private double cisnienie;
+    private String wiatr;
+
+    // Gettery i settery...
+}
+
+// Klasa reprezentująca prognozę na dany dzień
+class PrognozaDnia {
+    private String data;
+    private Temperatura temperatura;
+    private String opisPogody;
+
+    // Gettery i settery...
+}
+
+// Klasa reprezentująca zakres temperatur
+class Temperatura {
+    private double maksymalna;
+    private double minimalna;
+
+    // Gettery i settery...
+}
+
+// Klasa reprezentująca ostrzeżenie pogodowe
+class Ostrzezenie {
+    private String typ;
+    private String opis;
+
+    // Gettery i settery...
+}
+

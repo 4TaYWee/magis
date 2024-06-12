@@ -1,0 +1,49 @@
+public class TaskController {
+    private ObservableList<Task> tasks;
+    private TableView<Task> taskTable;
+
+    public TaskController() {
+        tasks = new ObservableList<Task>();
+        taskTable = new TableView<>(tasks);
+
+        // Dodanie kolumn do tabeli
+        TableColumn<Task, String> titleColumn = new TableColumn<>("Tytuł");
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        taskTable.getColumns().add(titleColumn);
+
+        TableColumn<Task, String> descriptionColumn = new TableColumn<>("Opis");
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        taskTable.getColumns().add(descriptionColumn);
+
+        TableColumn<Task, Boolean> doneColumn = new TableColumn<>("Wykonane");
+        doneColumn.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+        doneColumn.setCellFactory(new CheckBoxTableCell<>(tasks));
+        taskTable.getColumns().add(doneColumn);
+    }
+
+    // Metody do dodawania, edytowania, usuwania i oznaczania zadań jako wykonane
+    public void addTask(String title, String description) {
+        tasks.add(new Task(title, description));
+    }
+
+    public void editTask(Task task) {
+        // Implementacja edycji zadania
+    }
+
+    public void deleteTask(Task task) {
+        tasks.remove(task);
+    }
+
+    public void markTaskAsDone(Task task) {
+        task.setIsDone(true);
+    }
+
+    // Metody do filtrowania i wyszukiwania zadań
+    public void filterTasks(String status) {
+        // Implementacja filtrowania zadań
+    }
+
+    public void searchTasks(String query) {
+        // Implementacja wyszukiwania zadań
+    }
+}

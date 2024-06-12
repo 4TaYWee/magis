@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="currencies">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <!-- Dodaj inne waluty według potrzeb -->
+    </string-array>
+</resources>
